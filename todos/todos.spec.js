@@ -15,13 +15,14 @@ describe('Todos', () => {
         .expect(200)
         .expect(res => {
           expect(res.body.todos).to.be.an('array');
+          expect(res.body.todos.length).to.be.equal(2);
         })
         .end(done);
       });
   });
 
   describe('GET /todos/:id', () => {
-
+    
   });
 
   describe('POST /todos', () => {

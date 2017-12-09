@@ -1,7 +1,8 @@
 const chai = require('chai');
 const request = require('supertest');
+const { ObjectID } = require('mongodb');
 const app = require('../server');
-const populateTodos = require('./seed');
+const { todos, populateTodos } = require('./seed');
 
 const expect = chai.expect;
 
@@ -22,7 +23,27 @@ describe('Todos', () => {
   });
 
   describe('GET /todos/:id', () => {
-    
+    it('should find a todo by id', done => {
+      request(app)
+        .get(`/api/todos/${todos[0]._id.toHexString()}`)
+        .expect(200)
+        .end(done);
+    });
+
+    it('should not find a not existent todo', done => {
+      const hexId = new ObjectID().toHexString();
+      request(app)
+        .get(`/api/todos/${hexId}`)
+        .expect(404)
+        .end(done);
+    });
+
+    it('should not find a not valid objectid', done => {
+      request(app)
+        .get('/api/todos/123')
+        .expect(404)
+        .end(done);
+    });
   });
 
   describe('POST /todos', () => {

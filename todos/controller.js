@@ -1,21 +1,35 @@
 const Todo = require('./model');
+const { ObjectID } = require('mongodb');
 
 const getAll = async (req, res) => {
   try {
     const todos = await Todo.find({});
-    
     res.status(200).json({
       todos
     });
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).json();
   }
 };
 
-const getOne = (req, res) => {
-  res.status(200).json({
-    msg: 'GET /todos/:id'
-  });
+const getOne = async (req, res) => {
+  const { id } = req.params;
+  
+  if (!ObjectID.isValid(id)) {
+    res.status(404).json();
+  }
+
+  try {
+    const todo = await Todo.findById(id);
+
+    if (!todo) {
+      res.status(404).json();
+    }
+    
+    res.json({ todo });
+  } catch (e) {
+    res.status(400).json()
+  }
 };
 
 const create = (req, res) => {

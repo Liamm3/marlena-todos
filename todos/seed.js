@@ -1,8 +1,9 @@
 const Todo = require('./model');
+const { ObjectID } = require('mongodb');
 
 const todos = [
-  { text: 'First test todo', completed: true },
-  { text: 'Second test todo', completed: false}
+  { _id: new ObjectID(), text: 'First test todo', completed: true },
+  { _id: new ObjectID(), text: 'Second test todo', completed: false }
 ];
 
 const populateTodos = done => {
@@ -11,4 +12,7 @@ const populateTodos = done => {
   }).then(() => done());
 };
 
-module.exports = populateTodos;
+module.exports = { 
+  todos,
+  populateTodos
+ };

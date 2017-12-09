@@ -4,9 +4,7 @@ const { ObjectID } = require('mongodb');
 const getAll = async (req, res) => {
   try {
     const todos = await Todo.find({});
-    res.status(200).json({
-      todos
-    });
+    res.status(200).json(todos);
   } catch (e) {
     res.status(400).json();
   }
@@ -26,7 +24,7 @@ const getOne = async (req, res) => {
       res.status(404).json();
     }
     
-    res.json({ todo });
+    res.json(todo);
   } catch (e) {
     res.status(400).json()
   }
@@ -37,7 +35,7 @@ const create = async (req, res) => {
 
   try {
     const doc = await todo.save();
-    console.log('lkajsd')
+    
     res.status(200).json(doc);
   } catch (e) {
     res.status(400).json();

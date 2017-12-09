@@ -16,8 +16,8 @@ describe('Todos', () => {
         .get('/api/todos')
         .expect(200)
         .expect(res => {
-          expect(res.body.todos).to.be.an('array');
-          expect(res.body.todos.length).to.be.equal(2);
+          expect(res.body).to.be.an('array');
+          expect(res.body.length).to.be.equal(2);
         })
         .end(done);
       });
@@ -28,6 +28,9 @@ describe('Todos', () => {
       request(app)
         .get(`/api/todos/${todos[0]._id.toHexString()}`)
         .expect(200)
+        .expect(res => {
+          expect(res.body.text).to.be.equal(todos[0].text);
+        })
         .end(done);
     });
 

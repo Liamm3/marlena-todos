@@ -8,22 +8,23 @@ const expect = chai.expect;
 beforeEach(populateTodos);
 
 describe('Todos', () => {
-  it('GET /todos', done => {
-    request(app)
-      .get('/api/todos')
-      .expect(200)
-      .end(done);
+  describe('GET /todos', () => {
+    it('should get all todos', done => {
+      request(app)
+        .get('/api/todos')
+        .expect(200)
+        .end(done);
   });
 
-  it('GET /todos/:id', () => {
-
-  });
-
-  it('POST /todos', () => {
+  describe('GET /todos/:id', () => {
 
   });
 
-  it('PUT /todos/:id', () => {
+  describe('POST /todos', () => {
+
+  });
+
+  describe('PUT /todos/:id', () => {
 
   });
 

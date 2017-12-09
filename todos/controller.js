@@ -3,7 +3,7 @@ const Todo = require('./model');
 const getAll = async (req, res) => {
   try {
     const todos = await Todo.find({});
-
+    
     res.status(200).json({
       todos
     });

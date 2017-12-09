@@ -1,8 +1,11 @@
 const chai = require('chai');
 const request = require('supertest');
 const app = require('../server');
+const populateTodos = require('./seed');
 
 const expect = chai.expect;
+
+beforeEach(populateTodos);
 
 describe('Todos', () => {
   it('GET /todos', done => {

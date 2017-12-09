@@ -13,7 +13,11 @@ describe('Todos', () => {
       request(app)
         .get('/api/todos')
         .expect(200)
+        .expect(res => {
+          expect(res.body.todos).to.be.an('array');
+        })
         .end(done);
+      });
   });
 
   describe('GET /todos/:id', () => {

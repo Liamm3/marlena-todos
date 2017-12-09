@@ -5,19 +5,22 @@ const app = require('../server');
 const expect = chai.expect;
 
 describe('Todos', () => {
-  describe('GET /todos', () => {
+  it('GET /todos', done => {
+    request(app)
+      .get('/api/todos')
+      .expect(200)
+      .end(done);
+  });
+
+  it('GET /todos/:id', () => {
 
   });
 
-  describe('GET /todos/:id', () => {
+  it('POST /todos', () => {
 
   });
 
-  describe('POST /todos', () => {
-
-  });
-
-  describe('PUT /todos/:id', () => {
+  it('PUT /todos/:id', () => {
 
   });
 

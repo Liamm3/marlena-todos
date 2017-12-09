@@ -1,7 +1,15 @@
-const getAll = (req, res) => {
-  res.status(200).json({
-    msg: 'GET /todos'
-  });
+const Todo = require('./model');
+
+const getAll = async (req, res) => {
+  try {
+    const todos = await Todo.find({});
+
+    res.status(200).json({
+      todos
+    });
+  } catch (e) {
+    res.status(400).send(e);
+  }
 };
 
 const getOne = (req, res) => {

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha **/*.spec.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/*.spec.js",
     "start:watch": "nodemon server.js"
   },
   "keywords": [],

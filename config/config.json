@@ -2,5 +2,9 @@
   "development": {
     "MONGODB_URI": "mongodb://localhost:27017/todos",
     "PORT": 3000
+  },
+  "test": {
+    "MONGODB_URI": "mongodb://localhost:27017/todos-test",
+    "PORT": 3001    
   }
 }

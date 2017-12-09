@@ -9,3 +9,5 @@ app.use('/api', todosRoutes);
 app.listen(port, () => {
   console.log(`App listening to port ${port}.`);
 });
+
+module.exports = app;

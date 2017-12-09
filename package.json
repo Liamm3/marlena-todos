@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha **/*.spec.js",
     "start:watch": "nodemon server.js"
   },
   "keywords": [],
@@ -12,10 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "chai": "^4.1.2"
+    "express": "^4.16.2"
   },
   "devDependencies": {
-    "express": "^4.16.2",
+    "chai": "^4.1.2",
     "nodemon": "^1.12.5",
     "mocha": "^4.0.1",
     "supertest": "^3.0.0"

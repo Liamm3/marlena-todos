@@ -27,7 +27,7 @@ const getOne = async (req, res) => {
     res.send(todo);
   } catch (e) {
     res.status(400).send()
-  }n
+  }
 };
 
 const create = async (req, res) => {
@@ -63,10 +63,15 @@ const update = async (req, res) => {
   }
 };
 
-const remove = (req, res) => {
-  res.send({
-    msg: 'DELETE /todos/:id'
-  });
+const remove = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const todo = await Todo.findByIdAndRemove(id);
+    res.send(todo);
+  } catch (e) {
+    res.status(400).send();
+  }
 };
 
 module.exports = {

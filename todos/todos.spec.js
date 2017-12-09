@@ -121,6 +121,25 @@ describe('Todos', () => {
   });
 
   describe('DELETE /todos/:id', () => {
+    it('should delete a todo', done => {
+      const hexId = todos[0]._id.toHexString();
 
+      request(app)
+        .delete(`/api/todos/${hexId}`)
+        .expect(200)
+        .expect(res => {
+          expect(res.body._id).to.be.eq(hexId);
+        })
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          }
+
+          Todo.findById(hexId).then(todo => {
+            expect(todo).to.not.exist;
+            done();
+          }).catch(err => done(err));
+        });
+    });
   });
 });

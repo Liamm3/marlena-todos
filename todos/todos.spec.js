@@ -92,7 +92,32 @@ describe('Todos', () => {
   });
 
   describe('PUT /todos/:id', () => {
+    it('should update a todos text and completed status', done => {
+      const text = 'New text';
+      const hexId = todos[0]._id.toHexString();
 
+      request(app)
+        .put(`/api/todos/${hexId}`)
+        .send({
+          text,
+          completed: true
+        })
+        .expect(200)
+        .expect(res => {
+          expect(res.body.completed).to.be.equal(true);
+          expect(res.body.text).to.be.equal(text);
+        })
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          }
+
+          Todo.findById(hexId).then(todo => {
+            expect(todo.text).to.be.equal(text);
+            done();
+          }).catch(err => done(err));
+        });
+    });
   });
 
   describe('DELETE /todos/:id', () => {

@@ -42,10 +42,25 @@ const create = async (req, res) => {
   }
 };
 
-const update = (req, res) => {
-  res.status(200).json({
-    msg: 'PUT /todos/:id'
-  });
+const update = async (req, res) => {
+  const { body } = req;
+  const { id } = req.params;
+
+  if (!ObjectID.isValid(id)) {
+    res.status(400).json();
+  }
+
+  try {
+    const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+    if (!todo) {
+      res.status(404).json();
+    }
+
+    res.status(200).json(todo);
+  } catch (e) {
+    res.status(400).json();
+  }
 };
 
 const remove = (req, res) => {

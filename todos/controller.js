@@ -32,10 +32,16 @@ const getOne = async (req, res) => {
   }
 };
 
-const create = (req, res) => {
-  res.status(200).json({
-    msg: 'POST /todos'
-  });
+const create = async (req, res) => {
+  const todo = new Todo({ text: req.body.text });
+
+  try {
+    const doc = await todo.save();
+    console.log('lkajsd')
+    res.status(200).json(doc);
+  } catch (e) {
+    res.status(400).json();
+  }
 };
 
 const update = (req, res) => {

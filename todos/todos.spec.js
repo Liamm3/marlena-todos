@@ -3,6 +3,7 @@ const request = require('supertest');
 const { ObjectID } = require('mongodb');
 const app = require('../server');
 const { todos, populateTodos } = require('./seed');
+const Todo = require('./model');
 
 const expect = chai.expect;
 
@@ -47,7 +48,44 @@ describe('Todos', () => {
   });
 
   describe('POST /todos', () => {
+    it('should create a new todo', done => {
+      const text = 'new todo';
+      request(app)
+        .post('/api/todos')
+        .send({ text })
+        .expect(200)
+        .expect(res => {
+          expect(res.body.text).to.be.equal(text);
+        })
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
 
+          Todo.find({}).then(todos => {
+            expect(todos.length).to.be.equal(3);
+            expect(todos[2].text).to.be.equal(text);
+            done();
+          }).catch(err => done(err));
+        });
+    });
+
+    it('should not create invalid todos', done => {
+      request(app)
+        .post('/api/todos')
+        .set({})
+        .expect(400)
+        .end((err, res) => {
+          if (err) {
+            done(err);
+          }
+
+          Todo.find({}).then(todos => {
+            expect(todos.length).to.be.equal(2);
+            done();
+          }).catch(err => done(err));
+        })
+    });
   });
 
   describe('PUT /todos/:id', () => {

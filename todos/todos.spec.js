@@ -17,7 +17,7 @@ describe('Todos', () => {
         .expect(200)
         .expect(res => {
           expect(res.body).to.be.an('array');
-          expect(res.body.length).to.be.equal(2);
+          expect(res.body.length).to.be.eq(2);
         })
         .end(done);
       });
@@ -29,7 +29,7 @@ describe('Todos', () => {
         .get(`/api/todos/${todos[0]._id.toHexString()}`)
         .expect(200)
         .expect(res => {
-          expect(res.body.text).to.be.equal(todos[0].text);
+          expect(res.body.text).to.be.eq(todos[0].text);
         })
         .end(done);
     });
@@ -58,7 +58,7 @@ describe('Todos', () => {
         .send({ text })
         .expect(200)
         .expect(res => {
-          expect(res.body.text).to.be.equal(text);
+          expect(res.body.text).to.be.eq(text);
         })
         .end((err, res) => {
           if (err) {
@@ -66,8 +66,8 @@ describe('Todos', () => {
           }
 
           Todo.find({}).then(todos => {
-            expect(todos.length).to.be.equal(3);
-            expect(todos[2].text).to.be.equal(text);
+            expect(todos.length).to.be.eq(3);
+            expect(todos[2].text).to.be.eq(text);
             done();
           }).catch(err => done(err));
         });
@@ -84,7 +84,7 @@ describe('Todos', () => {
           }
 
           Todo.find({}).then(todos => {
-            expect(todos.length).to.be.equal(2);
+            expect(todos.length).to.be.eq(2);
             done();
           }).catch(err => done(err));
         })
@@ -104,8 +104,8 @@ describe('Todos', () => {
         })
         .expect(200)
         .expect(res => {
-          expect(res.body.completed).to.be.equal(true);
-          expect(res.body.text).to.be.equal(text);
+          expect(res.body.completed).to.be.eq(true);
+          expect(res.body.text).to.be.eq(text);
         })
         .end((err, res) => {
           if (err) {
@@ -113,7 +113,7 @@ describe('Todos', () => {
           }
 
           Todo.findById(hexId).then(todo => {
-            expect(todo.text).to.be.equal(text);
+            expect(todo.text).to.be.eq(text);
             done();
           }).catch(err => done(err));
         });

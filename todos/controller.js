@@ -1,5 +1,5 @@
 const Todo = require('./model');
-const { ObjectID } = require('mongodb');
+const {ObjectID} = require('mongodb');
 
 const getAll = async (req, res) => {
   try {
@@ -11,8 +11,8 @@ const getAll = async (req, res) => {
 };
 
 const getOne = async (req, res) => {
-  const { id } = req.params;
-  
+  const {id} = req.params;
+
   if (!ObjectID.isValid(id)) {
     res.status(404).send();
   }
@@ -23,19 +23,19 @@ const getOne = async (req, res) => {
     if (!todo) {
       res.status(404).send();
     }
-    
+
     res.send(todo);
   } catch (e) {
-    res.status(400).send()
+    res.status(400).send();
   }
 };
 
 const create = async (req, res) => {
-  const todo = new Todo({ text: req.body.text });
+  const todo = new Todo({text: req.body.text});
 
   try {
     const doc = await todo.save();
-    
+
     res.send(doc);
   } catch (e) {
     res.status(400).send();
@@ -43,15 +43,15 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  const { body } = req;
-  const { id } = req.params;
+  const {body} = req;
+  const {id} = req.params;
 
   if (!ObjectID.isValid(id)) {
     res.status(400).send();
   }
 
   try {
-    const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const todo = await Todo.findByIdAndUpdate(id, body, {new: true});
 
     if (!todo) {
       res.status(404).send();
@@ -64,7 +64,7 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
 
   try {
     const todo = await Todo.findByIdAndRemove(id);
@@ -79,5 +79,5 @@ module.exports = {
   getOne,
   create,
   update,
-  remove
+  remove,
 };

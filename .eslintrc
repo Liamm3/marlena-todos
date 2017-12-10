@@ -1,0 +1,13 @@
+{
+  "extends": ["eslint:recommended", "google"],
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "env": {
+    "commonjs": true,
+    "mocha": true
+  },
+  "globals": {
+    "process": true
+  }
+}

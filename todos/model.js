@@ -6,12 +6,12 @@ const todoSchema = new Schema({
     required: true,
     type: String,
     trim: true,
-    minlength: 1
+    minlength: 1,
   },
   completed: {
     default: false,
     type: Boolean,
-  }
+  },
 });
 
 module.exports = mongoose.model('Todo', todoSchema);

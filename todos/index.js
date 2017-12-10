@@ -4,5 +4,6 @@ const todosModel = require('./model');
 
 module.exports = {
   todosRoutes,
-  todosController
+  todosController,
+  todosModel,
 };

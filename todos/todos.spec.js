@@ -118,6 +118,21 @@ describe('Todos', () => {
           }).catch((err) => done(err));
         });
     });
+
+    it('should not update not existent todo', (done) => {
+      const hexId = new ObjectID().toHexString();
+      request(app)
+        .get(`/api/todos/${hexId}`)
+        .expect(404)
+        .end(done);
+    });
+
+    it('should not update a not valid objectid', (done) => {
+      request(app)
+        .get('/api/todos/123')
+        .expect(404)
+        .end(done);
+    });
   });
 
   describe('DELETE /todos/:id', () => {
